@@ -1,0 +1,7 @@
+<!-- Fichier d'intégration dans les pages de Syracuse -->
+<simple>
+  <titre>Projet bclogo</titre>
+  <auteur>Git Syracuse</auteur>
+  <h2>Sources MetaPost</h2>
+  <echo/>
+</simple>

@@ -5,7 +5,7 @@
 % i malo jos da se optimizuje, da se
 % uklone upozorenja i slicno 
 
-\documentclass[a4paper, 11pt]{article}
+\documentclass[a4paper, 11pt, twoside]{article}
 \usepackage[bindingoffset=0mm,%
             left=19mm,right=19mm,top=30mm,bottom=20mm,%
 	    footskip=12mm]{geometry}
@@ -141,13 +141,17 @@
 \pagestyle{fancy}
 \renewcommand{\subsectionmark}[1]{\markboth{#1}{}} % set the \leftmark
 \fancyhf{}
-\fancyhead[R]{\texttt{\thepage}} % predefined ()
-\fancyhead[L]{\texttt{\leftmark}} % 1. sectionname
+\fancyhead[RE]{\texttt{\thepage}}
+\fancyhead[LE]{\texttt{\leftmark}}
+\fancyhead[RO]{\texttt{\leftmark}} 
+\fancyhead[LO]{\texttt{\thepage}}
 \fancyfoot[C]{}
+
 \fancypagestyle{plain}{%
   \fancyhf{}%
   \renewcommand{\headrulewidth}{0pt}%
 }
+
 \setlength{\headsep}{6mm}
 
 \usepackage{tikz}
@@ -161,7 +165,7 @@
 %            NASLOV                         PODNASLOV                  AUTOR ...
 	\title{\textbf{\texttt{\textcolor{blue!50!cyan!70!black}{Operativni sistemi}}} \\ \vspace{1mm} \large{\texttt{\textcolor{blue!50!cyan!70!black}{podsetnik za praktični deo ispita}}}}
 	\author{\texttt{\textcolor{blue!50!cyan!70!black}{github.com/kotur95/skripte}}}
-	\date{\vspace{-2mm}\small{\texttt{\color{blue!50!cyan!70!black}{26.08.2017.}}}}
+	\date{\vspace{-2mm}\small{\texttt{\color{blue!50!cyan!70!black}{27.08.2017.}}}}
 
 \maketitle
 \begin{tikzpicture}[remember picture, overlay, color=blue!50!cyan!40!white]

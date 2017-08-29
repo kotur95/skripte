@@ -186,9 +186,8 @@
 % TABLE OF CONTENTS
 \renewcommand{\contentsname}{\LARGE{Sadržaj}}
 \tableofcontents
-\thispagestyle{empty}
-\setcounter{page}{2}
-\newpage
+\pagestyle{empty}
+\newpage~\newpage
 
 \pagestyle{fancy}
 
@@ -233,7 +232,7 @@ Funkcije date u Primeru \ref{lst:obrg} biće korišćene u narednim primerima.
 
 \subsection{Primeri obrade grešaka.}
 
-U ovoj sekciji biće predstavljeni primeri upotrebe funkcija za obradu gresaka.
+U ovoj sekciji biće predstavljeni primeri upotrebe funkcija za obradu gresaka
 
 \subsubsection{Pogrešan broj argumenata}
 
@@ -706,7 +705,7 @@ Funkcija \texttt{getdelim()} radi isto što i \texttt{getline()} ali delimiter k
 			\vspace{1mm} 
 	\item{Proverite povratnu vrednost u slučaju uspeha/greške komandom \texttt{shell-a}: \\ \vspace{-3mm} \begin{center}\texttt{echo \$?}\end{center}}
 			\vspace{1mm} 
-	\item{Ukoliko vam se javlja greška u fazi linkovanja, verovatno ste zaboravili da kompajleru navedete biblioteku koja se dinamičk povezuje: \\ \vspace{-3mm} \begin{center}\texttt{gcc primer.c -o primer-lpthread -lrt -lm -lNESTO}\end{center}}
+	\item{Ukoliko vam se javlja greška u fazi linkovanja, verovatno ste zaboravili da kompajleru navedete biblioteku koja se dinamičk povezuje: \\ \vspace{-3mm} \begin{center}\texttt{gcc primer.c -o primer -lpthread -lrt -lm -lNESTO}\end{center}}
 			\vspace{1mm} 
 		\item{Ponekad se mogu iskoristiti primeri koji se nalaze u man stranama.}
 			\vspace{1mm} 

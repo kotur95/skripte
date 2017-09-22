@@ -13,7 +13,8 @@ void * create_mem_block(const char * shmName, unsigned size)
 	ast(-1 != ftruncate(memFd, size), "Error truncating file");
 
 	void * addr;
-	addr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED , memFd, 0);
+	addr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED , \
+		       	memFd, 0);
 	ast(addr != MAP_FAILED, "Error mapping shm");
 	close(memFd);
 

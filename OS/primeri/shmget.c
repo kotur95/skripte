@@ -12,9 +12,8 @@ void * get_mem_block(const char *fpath, unsigned *size)
 	ast(-1 != fstat(memFd, &finfo), "Unable to get file stats");
 	*size = finfo.st_size;
 
-	void * addr = NULL;
 	addr = mmap(0, *size, PROT_READ | PROT_WRITE, MAP_SHARED, memFd, 0);
-	ast(addr != NULL, "Error maping memory");
+	ast(addr != MAP_FAILED, "Error maping memory");
 
 	close(memFd);
 	return addr;

@@ -1,4 +1,4 @@
-%!TEX TS-program = xelatex
+%!TEX TS-program = xelatex, preporuke su takođe dobrodošle.
 %!TEX encoding = UTF-8 Unicode
 
 % Kod treba da se sredi (beautify-je)
@@ -99,7 +99,7 @@
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=black
+    urlcolor=blue!85!cyan
 }
 
 \usepackage{titling}
@@ -109,7 +109,7 @@
 	\hspace{.06\textwidth} 
 	\begin{minipage}[t]{.88\textwidth} % Width (ex. .475)
 		\begin{mdframed}[topline=true,bottomline=true,leftline=true,rightline=true,backgroundcolor=gray!22, linecolor=gray!60!black,roundcorner=1mm]
-			\lstinputlisting[caption="", label=lst:#3, language=customc]{/home/kotur/Documents/LaTeX/Projects/OS/primeri/#1} 
+			\lstinputlisting[caption="", label=lst:#3, language=customc]{./primeri/#1} 
 
 	\begin{center}
 		\caption{\textbf{Primer \ref{lst:#3}:} #2}
@@ -136,15 +136,35 @@
 	\vspace{3mm} 
 }
 
+\newcommand{\syscall}[5] {
+	\vspace{2mm} 
+	{\Large{\texttt{#1} --- #2}}
+	\hline
+
+	\texttt{#3} 
+	\vspace{2mm} 
+	\hline
+
+	#4
+
+	\vspace{2mm} 
+	\hline
+	\textbf{Povratna vrednost: }#5  
+	\vspace{2mm} 
+	\hline
+	\vspace{2mm} 
+}
+
+
 \usepackage{fancyhdr}
 
 \pagestyle{fancy}
 \renewcommand{\subsectionmark}[1]{\markboth{#1}{}} % set the \leftmark
 \fancyhf{}
-\fancyhead[RE]{\texttt{\thepage}}
-\fancyhead[LE]{\texttt{\leftmark}}
-\fancyhead[RO]{\texttt{\leftmark}} 
-\fancyhead[LO]{\texttt{\thepage}}
+\fancyhead[LE]{\texttt{\thepage}}
+\fancyhead[RE]{\texttt{\leftmark}}
+\fancyhead[LO]{\texttt{\leftmark}} 
+\fancyhead[RO]{\texttt{\thepage}}
 \fancyfoot[C]{}
 
 \fancypagestyle{plain}{%
@@ -163,9 +183,9 @@
 \begin{titlepage}
 
 %            NASLOV                         PODNASLOV                  AUTOR ...
-	\title{\textbf{\texttt{\textcolor{blue!50!cyan!70!black}{Operativni sistemi}}} \\ \vspace{1mm} \large{\texttt{\textcolor{blue!50!cyan!70!black}{podsetnik za praktični deo ispita}}}}
+	\title{\textbf{\texttt{\textcolor{blue!50!cyan!70!black}{Operativni sistemi}}} \\ \vspace{1mm} \large{\texttt{\textcolor{blue!50!cyan!70!black}{skripta za praktični deo}}}}
 	\author{\texttt{\textcolor{blue!50!cyan!70!black}{github.com/kotur95/skripte}}}
-	\date{\vspace{-2mm}\small{\texttt{\color{blue!50!cyan!70!black}{27.08.2017.}}}}
+	\date{\vspace{-2mm}\small{\texttt{\color{blue!50!cyan!70!black}{22.09.2017.}}}}
 
 \maketitle
 \begin{tikzpicture}[remember picture, overlay, color=blue!50!cyan!40!white]
@@ -189,7 +209,94 @@
 \pagestyle{empty}
 \newpage~\newpage
 
+
+\section*{Predgovor}
+\addcontentsline{toc}{section}{Predgovor}
+
+Poštovani čitaoci ovo je radna verzija skripte, pa postoji velika mogućnost da nije najnovija verzija. Skripta je nastala iz potrebe za materijalima iz predmeta \texttt{Operativni Sistemi} (za praktični deo ispita, tj. sa vežbi) koji se održava na drugoj i trećoj godini studija na Matematičkom fakultetu, smer informatika. Rad na skripti je započeo Nebojša Koturović student matematičkog fakulteta koja je prvenstveno bila namenjena za sopstvene potrebe a onda je to podelio sa svojim kolegama i omogućio im da i oni učestvuju u izradi ove skripte.
+
+Izvorni (\LaTeX) kod skripte je dostupan na adresi \url{http://github.com/kotur95/skripte}, a skripta se može pronaaći i u PDF formatu na adresi \url{http://alas.matf.bg.ac.rs/~mi15139/\#files/skripte}}.
+
+Svako ko želi da unapredi ovu ili neku drugu drugi skriptu koja se nalazi u repozitorijumu \texttt{skripte} na \texttt{github-u} veoma je dobrodošao. Ideja je da se poboljša kvalitet dostupnih materijala iz kojih studenti mogu da uče, dakle svako ko želi da podeli svoje znanje dobro nam došao.
+
+\textbf{NAPOMENA:} Skripta je konstantno u fazi izrade, i može sadržati greške različitog tipa. Ukoliko primetite neku grešku poželjno je da sami izmenite izvorni kod ili možete poslati \texttt{e-mail} sa greškom na: \url{mi15139@alas.matf.bg.ac.rs}, preporuke su takođe dobrodošle.
+
+\newpage~\newpage
+
 \pagestyle{fancy}
+
+\section{Uvod}
+
+\subsection{Komandna linija}
+
+Komandna linija predstavlja mehanizam za interakciju sa operativnim sistemom ili nekim drugim programom kojim možemo obavljati različite zadatke u okviru našeg sistema. Koncept interfejsa komandne linije je nastao još 50-ih godina 20 veka kada je ovakav način zadavanja komandi (posredstvom \texttt{tty-a} \footnote{teletypewriter - Elektromehanička pisaća mašina uparena sa računarom putem komunikacionog kanala (korišćena kao U/I uređaj 50-ih godina)}) računaru zamenio do tada korišcjeni način (\texttt{paketne obrada}) koji je podrazumevao unošenje programa putem bušenih kartica. Pored unošenja naredbi, komandna linija nam pruža mogućnost ispisa teksta koji je rezultat rada programa i još pun toga.
+
+Kada govorimo o savremenim operativnim sistemima koji pružaju visok stepen udobnosti krajnjem korisniku, komandna linija se dosta ređe koristi jer mnogobrojne zadatke možemo obaviti putem \texttt{GUI-a} --- grafičkog korisničkog interfejsa. Najčešće se komandna linija u okviru \texttt{GUI-a}  emulira putem specijalnih programa i ponaša se na očekivani način.
+
+\subsection{Komandna linija u Linux okruženju}
+
+Specijalni programi koji nam obezbeđuju emulaciju komandne linije u \texttt{Linux} okruženju nazivaju se: \texttt{terminal emulator} i \texttt{shell}. Ova kombinacija predstavlja komandnu liniju u okviru \texttt{GUI-ja}.
+
+\vspace{4mm} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{term_emulator.png} % size, path
+	\caption{Terminal emulator + bash shell program}
+	\label{terbash}
+\end{figure}
+
+\vspace{2mm} 
+
+U daljem tekstu kada budemo govorili o konzoli, terminalu, komandnoj liniji, shell-u i slično referisaćemo baš na pomenutu kombinaciju koja nam predstavlja potreban alat za rešavanje određenih zadataka.
+
+Komande terminala mogu biti implementirane direktno u \texttt{shell} programu, a  najčešće su zasebni programi koji se nalaze na nekoj od lokacija definisanim u \texttt{PATH} varijabli, te programe pokreće \texttt{shell} program i prosleđuje im listu argumenata. U daljem tekstu kada kažemo komanda, mislićemo najčešće na neki program koji data komanda pokreće.
+
+\newpage
+
+\subsection{Komande shell-a} 
+
+Date su često korišćene i korisne komande \texttt{shell-a}:
+
+% TODO -- Ovo se mora preurediti :)
+
+\begin{itemize}
+	\item{\texttt{history} --- Štampa istoriju izvršavanih komandi}
+	\item{\texttt{info imekomande} --- Štampa informacije o komandi terminala}
+	\item{\texttt{pwd} --- Štampa trenutni radni direktorijum}
+	\item{\texttt{ls} --- Izlistava sadržaj direktorijuma}
+	\item{\texttt{cat} --- kopira standardni ulaz na standardni izlaz}
+	\item{\texttt{wc} --- Broji reči}
+	\item{\texttt{head imefajla} --- Štampa prvih 10 linija fajla}
+	\item{\texttt{tail imefajla} --- Štampa poslednih 10 linija fajla}
+	\item{\texttt{sort} --- Sortira}
+	\item{\texttt{find --- Pretražuje direktorijum}}
+	\item{\texttt{locate} --- Efikasna pretraga fajla u sistemu}
+	\item{\texttt{grep --- Traži patern u prosleđenim fajlovima}}
+	\item{\texttt{echo --- Štampa string koji je prosleđen.}}
+\end{itemize}
+
+\subsection{Man strane}
+
+U \texttt{man} stranama možemo naći dokumentaciju za određene servise operativnih sistema, komandi \texttt{shell-a}  raznih programa, i slično.
+
+\begin{enumerate}[1)]
+		 \item{Opšte naredbe}
+		 \item{Sistemski pozivi}
+		 \item{Funkcije C standardne biblioteke}
+		 \item{Specijalni fajlovi, drajveri}
+		 \item{Formati datoteka}
+		 \item{Igre i screen-saveri}
+		 \item{Razno}
+		 \item{Komande za administraciju sistemom}
+\end{enumerate}
+
+% TODO -- Sekcije ispod napisati
+% \subsection{MAKE alat}
+% 
+% \subsection{GDB - GNU Debuger}
+
+\newpage
 
 \section{Obrada grešaka}
 
@@ -257,6 +364,65 @@ Izraz na osnovu kojeg je kreirana provera da li je fajl regularan \texttt{(sbuf.
  
 %In the middle if you want to change the margins use
 %\newgeometry{left=0.8in,right=0.8in,top=1in,bottom=1in} 
+
+\newpage
+
+
+\section{Sistemski pozivi}
+
+\subsection{Šta su sistemski pozivi}
+
+Sistemski pozivi predstavljaju interfejs kojim možemo raditi kritične operacije na sistemu (npr. upisivanje u fajl, komuniciranje između procesa i sl.). Sistemski pozivi govore operativnom sistemu (tačnije jezgru) koji zadatak da obavi za nas.  
+
+Na kursu operativnih sistema ćemo koristiti sistemske pozive koji su ustvari funkcije u programskom jeziku \texttt{C} koje nam obezbeđuju određenu funkcionalnost.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{syscalls.jpg} % size, path
+	\caption{Sistemski pozivi u hijerarhiji OS-a}
+	\label{fig:syscalls}
+\end{figure} 
+
+Na slici \ref{fig:syscalls} možemo videti mesto sistemskih poziva u strukturalnoj hijerarhiji operativnog sistema.
+
+% TODO -- Zavrsiti sekciju o sistemskim pozivima
+
+\newpage
+
+\subsection{Rad sa fajlovima}
+
+\syscall{Open}{Sistemski poziv}
+{int open(const char *pathname, int flags); \\
+int open(const char *pathname, int flags, mode\_t mode);
+}{Prvi argument funkcije je lokacija fajla koji želimo da otvorimo, drugi argument je kombinacija flagova: 
+
+\texttt{O\_RDONLY} --- Otvara fajl samo sa čitanje\\
+\texttt{O\_WRONLY} --- Otvara fajl samo za pisanje\\
+\texttt{O\_RDWR} --- Otvara fajl za čitanje/pisanje\\
+\texttt{O\_APPEND} --- Otvara fajl i postavlja offset na kraj fajla\\
+\texttt{O\_CREAT} --- Kreira fajl ukoliko ne postoji\\
+\texttt{O\_EXCL} --- U kombinaciji sa \texttt{O\_CREAT} zahteva da fajl bude kreiran \\
+\texttt{O\_TRUNC} --- Postavlja veličinu fajla na 0 prilikom otvaranja 
+
+Treći argument je opcioni, ukoliko ga navedemo \texttt{open()} će pokušati da otvori fajl sa navedenim pravima pristupa koja se zadaju oktalno (npr. 0644, 0777) itd. više informacija o pravima pristupa u poglavlju koji se bavi ovom tematikom.
+}{\texttt{Fajl deskriptor} u slučaju uspeha, \texttt{-1} u slučaju greške i \texttt{errno} promenljiva se postavlja na odgovarajuću vrednost greške.}
+
+\syscall{Creat}{Sistemski poziv}
+{int creat(const char *path, modei\_t mode); $\Leftrightarrow$ open(path, O\_WRONLY|O\_CREAT|O\_TRUNC, mode);}
+{\texttt{creat()} sistemski poziv odgovara datom \texttt{open()} sisteskom pozivu, nedostatak mu je što otvara fajl samo za čitanje.}
+{\texttt{Fajl deskriptor} u slučaju uspeha, -1 u slučaju greške i \texttt{errno} promenljiva se postavlja na odgovarajuću vrednost.}
+
+\syscall{Close}{Sistemski poziv}
+{int close(int fd);}
+{Zatvara fajl na koji referiše fajl deskriptor}
+{\texttt{0} u slučaju uspeha, -1 u slučaju greške.}
+
+\syscall{Read}{Sistemski poziv}
+{ssize\_t read(int fd, void *buf, size\_t count);}
+{Pokušava da pročita count bajtova u bafer buf}
+{\texttt{broj pročitanih bajtova (0 označava kraj fajla)}, -1 u slučaju greške i \texttt{errno} se postavlja na odgovarajuću vrednost.}
+
+
 
 \newpage
 
@@ -657,9 +823,9 @@ Primetimo da pri izvršavanju datog programa ne možemo reći koja nit će se pr
 
 \subsection{Mutual exclusion (mutex)}
 
-Proces ima više niti, te niti se mogu izvršavati paralelno. Ukoliko niti imaju porebu da menjaju zajedničke resurse npr. globalnu promenljivoj itd. može doći do problema u sinhronizaciju. Za sinhronizaciju niti koristimo \texttt{mutex-e} (Mutual exclusion).
+Proces ima više niti, te niti se mogu izvršavati paralelno. Ukoliko niti imaju porebu da menjaju zajedničke resurse npr. globalnu promenljivu itd. može doći do problema u sinhronizaciju. Za sinhronizaciju niti koristimo \texttt{mutex-e} (Mutual exclusion).
 
-Mutex-ima ograničavamo tzv. kritične delove koda, npr. deo koda u kome se izmenjuje neki deljeni resurs. Kada nit zaključa \texttt{mutex}, bilo koja druga nit koja pokša da ga zaključa biće blokirana, tako isto i sledeća itd. Sve dok se prvi \texttt{mutex} ne otključa, pa drugi itd.
+Mutex-ima ograničavamo tzv. kritične delove koda, npr. deo koda u kome se izmenjuje neki deljeni resurs. Kada nit zaključa \texttt{mutex}, bilo koja druga nit koja pokša da ga zaključa biće blokirana, tako isto i sledeća itd. Sve dok se \texttt{mutex} ne otključa, tada se jedna nit odblokira, pa za nju isto važi.
 
 \vspace{2mm} 
 \scode{mutex_lock.c}{Funkcije za rad sa mutex-ima}{mutfunc}
@@ -673,6 +839,13 @@ Mutex-ima ograničavamo tzv. kritične delove koda, npr. deo koda u kome se izme
 \end{center}
 
 \newpage
+
+% TODO
+% \subsection{Uslovne promenljive}
+% 
+% 
+% \newpage
+
 \section{Korisne stvari}
 
 \subsection{Čitanje liniju po liniju}

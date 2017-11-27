@@ -1,0 +1,24 @@
+\select@language {english}
+\contentsline {section}{Predgovor}{5}{section*.2}
+\contentsline {section}{\numberline {1}Obrada grešaka}{7}{section.1}
+\contentsline {subsection}{\numberline {1.1}Funkcije za obradu grešaka}{7}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Primeri obrade grešaka.}{8}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Pogrešan broj argumenata}{8}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Otvaranje regularnog fajla}{8}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Kreiranje niti}{8}{subsubsection.1.2.3}
+\contentsline {section}{\numberline {2}Praktični primeri}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}Obrada signala}{9}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Kreiranje deteta}{10}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Exec familija funkcija}{11}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Pravljenje PIPE-a}{12}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Jednosmerna komunikacija između procesa (FIFO)}{13}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Deljena memorija}{15}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}Primeri deljenja memorije}{16}{subsubsection.2.6.1}
+\contentsline {subsection}{\numberline {2.7}Semafori}{18}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.8}Zaključavanje fajlova}{20}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.9}Rad sa nitima}{22}{subsection.2.9}
+\contentsline {subsection}{\numberline {2.10}Mutual exclusion (mutex)}{25}{subsection.2.10}
+\contentsline {subsection}{\numberline {2.11}Bonus primeri}{25}{subsection.2.11}
+\contentsline {section}{\numberline {3}Korisne stvari}{29}{section.3}
+\contentsline {subsection}{\numberline {3.1}Čitanje liniju po liniju}{29}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Saveti za ispit}{29}{subsection.3.2}

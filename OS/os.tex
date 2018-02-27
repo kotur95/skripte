@@ -273,10 +273,10 @@ Date su često korišćene i korisne komande \texttt{shell-a}:
 	\item{\texttt{head imefajla} --- Štampa prvih 10 linija fajla}
 	\item{\texttt{tail imefajla} --- Štampa poslednih 10 linija fajla}
 	\item{\texttt{sort} --- Sortira}
-	\item{\texttt{find --- Pretražuje direktorijum}}
+	\item{\texttt{find} --- Pretražuje direktorijum}
 	\item{\texttt{locate} --- Efikasna pretraga fajla u sistemu}
-	\item{\texttt{grep --- Traži patern u prosleđenim fajlovima}}
-	\item{\texttt{echo --- Štampa string koji je prosleđen.}}
+	\item{\texttt{grep} --- Traži patern u prosleđenim fajlovima}
+	\item{\texttt{echo} --- Štampa string koji je prosleđen.}
 \end{itemize}
 
 \subsection{Man strane}
@@ -293,6 +293,13 @@ U \texttt{man} stranama možemo naći dokumentaciju za određene servise operati
 		 \item{Razno}
 		 \item{Komande za administraciju sistemom}
 \end{enumerate}
+
+Na primer da bismo otišli na \texttt{man} stranu za sistemski poziv \texttt{open}, a sistemski pozivi se nalaze u sekciji 2 u terminalu bismo ukucali komandu: 
+
+\begin{center}\texttt{man 2 open}\end{center}
+
+\item{Možemo pretražiti sve man strane komandom: \\ \vspace{-3mm} \begin{center}\texttt{man -k . | grep KLJUCNA\_REC}\end{center}}
+
 
 % TODO -- Sekcije ispod napisati
 % \subsection{MAKE alat}
@@ -885,9 +892,9 @@ Funkcija \texttt{getdelim()} radi isto što i \texttt{getline()} ali delimiter k
 \subsection{Saveti za ispit}
 
 \begin{itemize}
-	\item{Možete pretražiti sve man strane komandom: \\ \vspace{-3mm} \begin{center}\texttt{man -k . | grep KLJUCNA\_REC}\end{center}}
+	\item{Možemo pretražiti sve man strane komandom: \\ \vspace{-3mm} \begin{center}\texttt{man -k . | grep KLJUCNA\_REC}\end{center}}
 			\vspace{1mm} 
-	\item{Možete pretražiti man strane sistemskih poziva komandom: \\ \vspace{-3mm} \begin{center}\texttt{man -2 syscalls | grep KLJUCNA\_REC}\end{center}}
+	\item{Možemo pretražiti man strane sistemskih poziva komandom: \\ \vspace{-3mm} \begin{center}\texttt{man -2 syscalls | grep KLJUCNA\_REC}\end{center}}
 			\vspace{1mm} 
 		\item{Ukoliko ste uključili sva potrebna zaglavlja a kaze vam da funkcija nije definisana, postoji velika mogucnost da ste zaboravil neku definiciju tipa: \\ \vspace{-3mm} \begin{center}\texttt{\#define \_GNU\_SOURCE (500)}\end{center}}
 			\vspace{1mm} 

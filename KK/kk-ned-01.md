@@ -1,6 +1,6 @@
 ---
 title: KK - Nedejla 01
-author: <a href='https://github.com/kotur95/skripte'>github.com/kotur95/skripte</a>
+author: github.com/kotur95/skripte
 date: 20.02.2018.
 ---
 

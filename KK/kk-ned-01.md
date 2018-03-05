@@ -1,6 +1,6 @@
 ---
-title: KK - Nedejla 01
-author: github.com/kotur95/skripte
+title: KK vežbe - Nedejla 01
+author: "[github.com/kotur95/skripte](http://github.com/kotur95/skripte)"
 date: 20.02.2018.
 ---
 
@@ -104,10 +104,9 @@ int main() {
  ```
 
 
-**`inline funkcije`** - Kljucna rec inline sugerise prevodiocu da poziv te funkcije zameni telom te funkcije. (Kao makro) `inline int kvadrat_broja(int n);`
+**`inline funkcije`** - Kljucna rec inline sugerise prevodiocu da poziv te funkcije zameni telom te funkcije (kao makro): `inline int kvadrat_broja(int n);`
 
 Dinamicka alokacija u Cpp-u vrsi se pomocu kljucnih reci: `new` i `delete`
-
 
 ## Objektno-Orijentisani CPP
 * Klasa razlomak
@@ -116,7 +115,7 @@ Konstruktor predstavlja posebnu vrstu metoda kojom se kreira instanca tj. objeka
 
 Najcesce cemo deklaracije metoda klase razdvajati od njihove implementacije (nalik u c-u). U header fajlu deklarisemo klasu, njene promenljive i metode a u izvornom `c++` fajlu implementiramo klasne metode. Na sledecem primeru data je klasa `razlomak` ciji metod `postaviRazlimak()` deklarisemo u `header`fajlu (`.hpp`) a implementiramo u `izvornom` fajlu (`.cpp`).
 
-`Razlomak.hpp`
+`Razlomak.hpp:`
 ```c++
 #ifndef __RAZLOMAK_H__
 #define __RAZLOMAK_H__
@@ -132,7 +131,7 @@ public:
 #endif // __RAZLOMAK_H__
 ```
 
-`Razlomak.cpp`
+`Razlomak.cpp:`
 ```c++
 #include "Razlomak.hpp"
 
@@ -142,12 +141,13 @@ void Razlomak::postaviRazlomak(int b, int i) {
 }
 ```
 
+## Info
 * Postoji podrazumevani konstruktor koji prima 0 argumenata. Taj konstruktor se brise kada korisnik napravi bar jedan konstruktor.
-* Podrazumevana vidljivost u klasi (ukoliko ne navedemo eksplicitno) je private.
-* Nepisana konvencija moze biti da private clanovi klasa pocinju sa _ radi lepse organizacije koda.
-* Podrazumevani pozove konstruktor bez argumenata
-* Podrazumevani konstruktor poziva konstruktor bez argumenata za klasu razlomak.
-* Podrazumevane vrednosti a=0, b=1
-* Kada napisemo jedan, podrazumevani konstruktor vise ne postoji.
-
-Ako dodamo const ispred this prosledjujemo metodu, kome se pristupa unutar klase. Da bi mogli da vracamo (get) tj. da getujemo .. Dodacemo metod() const{} - Ne menja objekat na kome se poziva, deklarisemo tu metodu kao konstantnu. I dalje ce se taj motod koristiti i na nekonstantne objekte lagano.
+* Podrazumevana vidljivost u klasi (ukoliko drugacije ne navedemo eksplicitno) je private.
+* Nepisana konvencija moze biti da `private` clanovi klasa pocinju sa `_` radi lepse organizacije koda.
+* Podrazumevani konstruktor uvek poziva konstruktor bez argumenata.
+* Podrazumevane vrednosti argumenata funkcija se dodaju na sledeci nacin:
+```c++
+int swap(int a = 0, int b = 0);
+```
+* Kada bar jedan konstruktor u klasi, podrazumevani konstruktor se brise (ne postoji vise).

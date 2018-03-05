@@ -47,28 +47,31 @@
   \plitemsep=1pt
   \plparsep=1pt
 
-\lstset{basicstyle=\ttfamily,breaklines=true}
+\lstset{basicstyle=\fontsize{10.45}{13}\ttfamily,breaklines=true}
 % \lstset{framextopmargin=10pt,framexbottommargin=10pt, frame=lines}
 %\lstset{lineskip={-0.5pt}}
 
+
 \lstset {
+  framesep=5pt, 
   backgroundcolor=\color{lightgray!22},
   captionpos=0, % sets the caption-position to bottom
   %belowcaptionskip=1\baselineskip,
   breaklines=true,
-  xleftmargin=\parindent,
+  xleftmargin=6pt,
+  xrightmargin=6pt,
   tabsize=6, % sets default tabsize to 2 spaces
   showstringspaces=false,
   keywordstyle=\bfseries\color{blue!65},
   commentstyle=\itshape\color{green!55!black},
   identifierstyle=\color{black},
   stringstyle=\color{orange!85!black},
-  framextopmargin=2pt,
-  %framexleftmargin=1,
-  %framexrightmargin=1,
-  framexbottommargin=2pt,
+  % framextopmargin=-13pt,
+  % framexbottommargin=-13pt,
+  % framexleftmargin=-13pt,
+  % framexrightmargin=-13pt,
   frame=single, % adds a frame around the code
-  rulecolor=\color{gray!65!black}
+  rulecolor=\color{gray!80}
   }
 
   %\lstset{
@@ -99,8 +102,8 @@
 \hypersetup{
     colorlinks,
     citecolor=black,
-    filecolor=black,
-    linkcolor=black,
+    filecolor=blue, 
+    linkcolor=blue!85!cyan,
     urlcolor=blue!85!cyan
 }
 
@@ -513,7 +516,7 @@ $if(institute)$
 \providecommand{\institute}[1]{}
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
 $endif$
-\date{\vspace{-3mm}$date$}
+\date{\vspace{-2mm}$date$}
 $if(beamer)$
 $if(titlegraphic)$
 \titlegraphic{\includegraphics{$titlegraphic$}}

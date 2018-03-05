@@ -1,12 +1,12 @@
 ---
-title: KK - Nedejla 02
-author: github.com/kotur95/skripte
+title: KK vežbe - Nedejla 02
+author: "[github.com/kotur95/skripte](http://github.com/kotur95/skripte)"
 date: 27.02.2018.
 ---
 
-# Objektno-Orijentisani C++
+# Objektno-Orijentisani koncepti (C++)
 
-Sta je to tacno javni interfejs?
+## Konstruktori
 
 Konstruktorska sintaksa
 
@@ -21,37 +21,40 @@ Razlomak(int a = 0, int b = 1) :_brojilac(a), _imenilac(b) {
 }
 ```
 
-Sada zelimo da napravimo da se razlomak ispisuje na sledeci nacin:
+## Operatori
 
+Zelimo da omogucimo sledecu sintakstu.
+
+`Razlomak, ostream i operator <<:`
 ```c++
 Razlomak r;
 cout << r << endl;
 ```
-Da bi ovakva sintaksa bila moguca, potrebno je da definisemo operator `<<` na razlomcima.
-Ovaj konstruktor ce morati da se definise van klase razlomak zasto?
+Da bi ovakva sintaksa bila moguca, potrebno je da definisemo operator `<<` nad ostream-om i Razlomkom.
+Ovaj operator ce morati da se definise van klase razlomak - zasto?
 
-Interno to se prevodi 'metod' `cout.operator<<(r)` koja se izvrsava nad cout sa argumentom `r`. Dakle operator `<<` treba da bude definisan u klasi `ostream`.  
+Interno to se prevodi u 'metod' `cout.operator<<(r)` koja se izvrsava nad cout sa argumentom `r`. Dakle operator `<<` treba da bude u okviru klase `ostream`.
 
-Pisemo van svih klasa operator <<.
-- Povratna vrednost ovog operatora treba da bude ostream.
+Pisemo van svih klasa operator `<<`, povratna vrednost ovog operatora treba da bude objekat tipa `ostream`.
 
+`Implementacija peratora <<:`
 ```c++
 /* Prosledjujemo razlomak i ostream po referenci Razlomak 
-radi ustede memorije, a ostream mozemo menjati. */
-
+radi ustede memorije, a ostream da bi ga menjali. */
 ostream operator << (ostream &izlaz, const Razlomak & r) {
 	izlaz << r.vratiBrojilac() << "/" << r.vratiIMenilac();
 	return izlaz;
 }
 ```
 
-Kako cemo uraditi slicnu stvar za `cin`?
+Kako cemo uraditi istu stvar za ulaz, kao u primeru ispod?
 
+`Operator >>:`
 ```c++
 Razlomak r;
 cout << "Unesi razlomak r: ";
 
-/* Mozemo vise da probamo */
+/* Hvatamo izuzetke pojedinacno */
 try {
 	cin >> r;
 } catch (char * s) {
@@ -63,18 +66,18 @@ try {
 	cout << "Neispravan unos razlomka" << endl;
 }
 
-/* Ili da hvatamo sve tipove izuzetaka */
+/* Hvatamo sve tipove izuzetaka odjednom */
 catch (...) {
 	cout << "Nepoznat tip izuzetka" << endl;
 }
 ```
-
+**Izlaz:**
 ```
 Neispravan format razlomka
 initiate called after throwing instance const char*
 ```
 
-Na isti nacin i iz istih razloga pisemo operator `>>` van klase Razlomak:
+Operator `>>` implementiramo slicno kao operator `<<`.
 
 ```c++
 istream& operator >> (istream& ulaz, Razlomak& r) {
@@ -84,62 +87,56 @@ istream& operator >> (istream& ulaz, Razlomak& r) {
 }
 ```
 
-Resavanje ovog problema moze da se uradi tzv `prijateljskom funkcijom` - To su funkcije ili klase koje mogu da pristupaju privatnim podacima neke druge klase.
-
-Zelimo nekoj konkretnoj klasi ili nekoj konkretnoj funkciji da dozvolimo da pristupaju nekoj `funkciji/klasi`. To ne moze funkcija ili klasa sama sebi da kaze vec se to radi u klasi cijim se podacima pristupa.
-Dodajemo:
+Problem pristupanja privatnim clanovima klase Razlomak mozemo razresiti tzv. `prijateljskom funkcijom`, to su funkcije ili klase koje mogu da pristupaju privatnim podacima neke druge klase.
 
 ```c++
+	/* Todo za friend klasu */
 	friend
 ```
 
-Umesto toka cu da napravim javni interfejs iz klase razlomak koji ce da obezbedi
-pisanje razlomka (pravimo metod u klasi razlomak)
+Bolji nacin razresavanja pristupa privatnim clanovima klase `Razlomak` jeste pravljenje javnog interfejsa (metoda) u okviru klase. Prilikom pozivanja ovog metoda neophodno je proslediti mu `ostream` na koji treba da ispise razlomak.
 
 ```c++
-void pisi(ostream& izlaz) const {
+void Razlomak::pisi(ostream& izlaz) const {
 	izlaz << _brojilac << "/" << _imenilac;
 }
 ```
 
-Onda radimo za ispisivanje na izlaz:
-
+Onda implementiramo operator `<<` na sledeci nacin:
 ```c++
-ostream& operator << (ostream& izlaz, const RAzlomak & r) {
+ostream& operator << (ostream& izlaz, const Razlomak & r) {
 	r.pisi(izlaz);
 	return izlaz;
 }
 
 ```
 
-Slicno bi bilo za upis:
+Slicno bi bilo za citanje sa `cin`:
 
 ```c++
-ostream& operator << (ostream& ulaz,  RAzlomak & r) {
+ostream& operator >> (ostream& ulaz,  Razlomak & r) {
 	r.citaj(ulaz);
 	return izlaz;
 }
-
 ```
 
+`Citanje razlomka sa standardnog ulaza:`
 ```c++
  char c;
+ /*             Razlomacka crta      */
+ /*                   |              */
+ /*                   V              */
  cin << r.brojilac << c << r.imenilac;
 
+/* Ako je c razlicito od razlomacke crte */
  if (c != '/') {
-	/* Ne mora klasa exception kao u javi,
-	moze objekat bilo kog tipa. */
-
-	throw "Neispravan format razlomka" 
+	/* Izuzetak ne mora biti pripadnik klase exception 
+	kao u Javi, moze objekat bilo kog tipa. */
+	throw "Neispravan format razlomka";
 }
-	
  return ulaz;
 ```
-
-U klasu `Razlomak` dodajemo metode `citaj()` i `pisi()` i tu hvatamo exception-e
-```c++
- /* Ovde ide kod za citaj() i pisi() */
-```
+U klasu `Razlomak` treba dodati metode `citaj()` i `pisi()` i tu uhvatiti izuzetke.
 
 Dalje zelimo da implementiramo nesto nad razlomcima (sabiranje/oduzimanje npr)
 
@@ -152,9 +149,10 @@ cin >> p;
 
 cout << "r + p = " << r + p;
 
-/* Ovo nece raditi dok ne implementiramo op. + */
+/* Ovo nece raditi dok ne implementiramo operator + */
 ```
 
+`C-ovski nacin:`
 ```c++
 /* C-ovska sintaksa */
 Razlomak saberi(const Razlomak & a, const Razlomak &b) {
@@ -167,6 +165,7 @@ Razlomak saberi(const Razlomak & a, const Razlomak &b) {
 }
 ```
 
+`C++ nacin:`
 ```c++
 /* C++ Sintaksa */
 /* Umesto toga bar metod u klasi da napravimo */
@@ -177,31 +176,29 @@ Razlomak Razlomak::saberiSa(const Razlomak &b) const {
 }
 ```
 
-Ovo nam se ne svijda jer bi uvek morali da pisemo `razlomak.saberiSa(razlomak2)` ...
+Ovo nam se ne svijda jer ne moramo uvek da pisemo `razlomak.saberiSa(razlomak2)`, umesto toga  implementiramo bas operator `+`, koji nam pruza visi stepen udobnosti. Jedino sto treba da uradimo je da metod `saberiSa()` preimenujemo u `operator+()`
+```c++
+Razlomak Razlomak::operator+(const Razlomak &b) const {
+```
 
-Umesto toga zelmo da implementiramo bas operator `+`
-Jedino sto treba da uradimo je da metod `saberiSa()` preimenujemo u `operator+()`
+Ostali opeartori se mogu uraditi na slican nacin.
 
-Oduzimanje, mnozenje, deljenje ... se radi na slican nacin.
+Skup operatora je fiksan i ne mozemo definisati nove operatore, samo mozemo da ih predefinisemo, takodje ne mozemo im promeniti asocijativnost i prioritet.
 
-Do sada smo radili binarne operator.. Ne mozemo da definisemo nove operatore (skup operatora je fiksan) samo mozemo da ih predefinisemo. Ukoliko zelimo da vidimo koji su to operatoru mozemo uneti u komandnoj liniji:`` (ne mozemo im promeniti asocijativnost i prioritet). Mozemo samo da kazemo kako se izvrsava ta operacija.
+Do sada smo radili binarne operator, hajde da napravimo unarni operator ~ koji vraca recriprocan razlomak:
 
-Hajde da napravimo operator ~ (npr) da vrati recriprocan razloma:
-
+`Operator reciprocan razlomak (~):`
 ```c++
 /* ~R treba da vrati 1/R */
-
 Razlomak operator ~() const {
 	return Razlomak(imenilac, brojilac);
 }
 ```
-Slicno mozemo da predefinisemo operator `==` koji vraca `bool` primao bi jedan argument koji poredi sa `this`-om. Razlicito `!=` bi mogli da vratimo negaciju od `==`.
+Slicno mozemo da predefinisemo operator `==` koji vraca `bool`, primao bi jedan argument koji poredi sa `this`-om. Razlicito `!=` bi mogli da vratimo negaciju od `==`.
 
-
-`Operator ++ prefiksni i postfiksni`
+`Main program:`
 ```c++
 /* r je 1/2 */
-
 cout << r << endl;
 cout << ++r << endl;
 cout << r << endl;
@@ -210,24 +207,21 @@ cout << r << endl;
 cout << r++ << endl;
 cout << r << endl;
 ```
+`Operator ++ (prefiksni):`
 ```c++
 /* Prefiksni nema argumente */
 Razlomak Razlomak::operator++() {
 	_brojilac += _imenilac;
 	return *this;
 }
+```
 
+```
 /* Kako prevodilac zna da je prefiksni ili postfiksni */
-
-/* Postfiksni ima argument (fiktivni) int*/
+/* Postfiksni ima argument (fiktivni) int */
 Razlomak Razlomak::operator++(int) {
 	Razlomak tmp(_brojilac, _imenilac);
 	_brojilac += _imenilac;
-
-*/ Umesto linije iznad moglo je i: */
-	++(*this)
-/* ali je ovo malo neefikasno */
-
 	return tmp;
 }
 ```
@@ -239,9 +233,11 @@ cint >> r;
 cout << "double(r) = " << double(r) << endl;
 ```
 
-U klasi Razlomak definisemo cast operator:
+U klasi Razlomak definisemo `cast` operator:
 Kod `cast` operatora za razliku od ostalih operatora nemamo povratnu vrednost 
-vec se pretpostavlja da je povratna vrednost bas ono na sta se kastuje.
+vec se implicitno pretpostavlja da je povratna vrednost bas ono na sta se kastuje.
+
+`cast operator:`
 ```c++
 operator Razlomak::double() const {
 	return (double)_brojilac/_imenilac;
@@ -256,11 +252,9 @@ Da li je moguce uraditi nesto ovako?
 ```c++
 /* Ne ocekujemo da ovo radi sa konstantama */
 cout << "r + 1 = " << r + 1 << endl;
-
-/* Ali ce operaor + da radi ali nece raditi ocekivano */
-
+/* Ali ce operaor + da radi ali ne na ocekivani nacin */
 /* Znace da cast-uje int u razlomak jer ce konstruktor da se 
-koristi kao cast operator (ako ne postoji eksplicitni cast operator) */
+koristi kao cast operator (jer ne postoji eksplicitni cast operator) */
 
 /* Implicitno ce cast-ovati 1 -> 1/1 kao ispod: */
 cout << "r + 1 = " << r + Razlomak(1) << endl;
@@ -268,7 +262,6 @@ cout << "r + 1 = " << r + Razlomak(1) << endl;
 /* Mogu da sprecim kompilator da radi implicitno cast-ovanje
 reci cu mu da radi samo eksplicitno - To se vrsi tako sto ispred
 konstruktora stavimo kljucnu rec 'explicit' */
-
 explicit Ralomak(const int &b);
 
 /* Ukoliko cast operator u double postoji */
@@ -277,13 +270,11 @@ cout << "r + 1 = " << (double) r << endl;
 /* Ovo vraca crednost 2.5 TODO: Proveri */
 ```
 
-Zna da treba da se kastuje `int` u `Razlomak` jer je jedino moguce kastovati u tom smeru. Morali bi da napravimo slican `cast` operator za `int`.
+**Napomena:** Kompilator zna da treba da kastuje `int` u razlomak jer je jedino moguce kastovati u tom smeru.
 
-Kljucna rec `explicit` moze da stoji uz bilo koji konstruktor.
+Kljucna rec `explicit` moze da stoji uz bilo koji konstruktor, ne samo uz `cast` operator.
 
-Ako kazemo da je i cast operator implicitan a i konstruktor kompilator nece znati koji od dva kandidata da koristi i izbacice gresku (da li konstruktor ili (double) cast operator.
-
-TODO Videti sta se tu desava kad su oba explicit, oba implicit.
+Ako su cast operator i konstruktor za dati tip `implicitni`, tj. nigde nismo naveli `explicit` kljucnu rec, kompilator ce se buniti jer ne zna koji od dva kandidata da koristi (konstruktor ili `cast` operator).
 
 ## Desktruktori
 
@@ -326,7 +317,7 @@ Ukoliko je metod jako prost mozemo ga napisati u `.hpp` fajlu.
  	return _elementi[i];
  }
 
-/* Nova verzija - Siri niz */
+/* Nova verzija programa koji povecava duzinu niza */
 int& Niz::operator[](int i) const {
 	if (i >= _kapacitet) {
 		int *novi = new int[i + 10]
@@ -345,7 +336,7 @@ int& Niz::operator[](int i) const {
 }
 ```
 
-`1) main.cpp:`
+`No.1) main.cpp:`
 ```c++
 int main () {
 
@@ -358,7 +349,7 @@ int main () {
 }
 ```
 
-`2) main.cpp:`
+`No.2) main.cpp:`
 ```c++
 int main () {
 
@@ -379,12 +370,9 @@ int main () {
 }
 ```
 
-
 Ono sto zelimo da resimo je dinamicko povecavanje velicine niza.
 
-
-
-`3) main`
+`No.3) main.cpp`
 ```c++
 int main() {
 	Niz n(1);
@@ -395,8 +383,8 @@ int main() {
 	for (int i=0; i <= 1000000; i++) 
 		n[i] = i;
 
-	/* Ovo radi dosta dosta brze */
-	/* 4MB memorije je potrebno */
+	/* Ovo radi dosta dosta brze jer odjednom 
+	alocira potreban prostor */
 	for (int i=1000000; i >= 0; i--) 
 		n[i] = i;
 		
@@ -404,46 +392,42 @@ int main() {
 		for (int j=0; j<1000; j++) {
 
 			/* Ovo radi dosta dosta brze */
-			/* 4MB memorije je potrebno (kada nije u
-			for petlji (ocu) */
+			/* Naizgled treba nam samo 4MB memorije */
 
 			for (int i=1000000; i >= 0; i--) 
 				n[i] = i;
 
 		}
-		/* Kraj: Ovde imamo curenje memorije */
-		
-		/* Niz n(1) - Curi nam jer nastavlja da zivi na kraju bloka for-a */
-
-		
-		/* Podrazumevani destruktor ne radi ono so nam treba */
+	/* Imamo problem, ne treba nam 4MB nego 1000*4MB.
+	/* Niz n(1) - Curi nam jer nastavlja da zivi na kraju bloka for-a */
+	/* Podrazumevani destruktor ne radi ono so nam treba */
 	}
 	return 0;
 }
 ```
 
 **Faze:**
-TODO Dodaj ispravno koje su faze
+TODO Proveriti ove faze (da li je to sve):
 
 1) Alokacija
 2) Inicijalizacija 
 2) Deinicijalizacija
 2) Dealokacija
 
-Postoji podrazumevani destruktor (on unistava klasne tipove na kraju bloka)
+Postoji podrazumevani destruktor (on unistava klasne tipove koji nisu dinamicki alocirani na kraju bloka)
 
-Podrazumevani destruktor za svaki clan podataka poziva podrazumevani destruktor za clanove. Npr. destruktor za int oslobadja ta 4 bajta koja int zauzima.
+Podrazumevani destruktor za svaki clan klase (podatak) poziva podrazumevani destruktor za taj tip (clana). Npr. destruktor za int oslobadja ta 4 bajta koja int zauzima.
 
 Ako bi imali klasni objekat, podrazumevani destrutor bi pozvao destruktor za njega. U zavisnosti od tipa podatka destruktor ce uraditi ono sto treba.
 
-Posto imamo pokazivac na niz, podrazumevani nece osloboditi prostor na ocekivani nacin (nece osloboditi clanove niza).
+Posto imamo pokazivac na niz, podrazumevani nece osloboditi prostor na ocekivani nacin (nece osloboditi clanove niza koji su dinamicki alocirani vec ce samo osloboditi prostor za cuvanje pokazivaca).
 
-`Implementacija destruktora za klasnu niz`
-Radimo onaj visak koji podrazumevani ne radi,
-kada napravimo svoj nakon naseg destruktora se vrsi
-i ono sto podrazumevani ne rade, trebaju da se izbrisu clanovi niza
-ali ne treba ono sto radi podrazumevanu destruktor.
+Kada implementiramo nas destruktor, potrebno je da dealociramo samo onaj visak koji podrazumevani ne moze,
+kada pozovemo nas destruktor, nakon njega se izvrsava rutina koju bi inace
+podrazumevani destruktor izvrsio. Dakle kada pravimo nas `custom` destruktor potrebo je izbrisati
+ono sto ne moze podrazumevani destruktor, u nasem primeru treba da dealociramo clanove niza.
 
+`Implementacija destruktora za dinamicki alocirani niz:`
 ```c++
 Niz::~Niz() {
 	delete [] _elementi;
@@ -451,9 +435,3 @@ Niz::~Niz() {
 ```
 
 Za razliku od `Jave` c++ nema `garbage collector` imamo vise posla ali i bolju kontrolu nad memorijom.
-
-
-## Operator dodele
-
-
-## Konstruktor kopije

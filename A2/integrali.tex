@@ -1,0 +1,198 @@
+\documentclass{article}
+
+\usepackage[a4paper,bindingoffset=0.2in,%
+left=2.5cm,right=2.5cm,top=1.5cm,bottom=1.5cm,%
+footskip=.25in]{geometry}
+            
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+%\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage{lipsum}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb,amsthm}
+\setlength{\parindent}{0pt}
+\usepackage[makeroom]{cancel}
+\pagenumbering{gobble}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=4mm,
+ top=10mm,
+ }
+
+\usepackage{enumitem}
+
+ % Title bez brojeva
+\usepackage{titlesec}
+\renewcommand{\thesection}{\hspace*{-0.4cm}}
+\renewcommand{\thesubsection}{\hspace*{-0.2cm}}
+\renewcommand{\thesubsubsection}{\hspace*{-0.4cm}}
+
+\titleformat*{\section}{\Large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\Big\bfseries}
+\titleformat*{\paragraph}{\big\bfseries}
+\titleformat*{\subparagraph}{\big\bfseries}
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{8pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{5pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+
+
+
+\newcolumntype{I}{>{\centering}p}
+\newcolumntype{R}{>{}p}
+
+\title{Integrali}
+\author{Milan Pužić}
+\date{May 2018}
+
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\ctg}{ctg}
+\DeclareMathOperator{\arctg}{arctg}
+
+
+\begin{document}
+
+\subsection{Tablični integrali}
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{enumerate}
+	\item$ \displaystyle \int x ^ { \alpha } d x = \frac { x ^ { \alpha + 1} } { \alpha + 1} + C ,\alpha \neq - 1 $
+	\item $\displaystyle \int \frac { 1 } { x } d x = \ln | x | + C $
+	\item $\displaystyle \int e ^ { x } d x = e ^ { x } + C $
+	\item $\displaystyle \int a ^ { x } \text{d} x = \frac { a ^ { x } } { \ln a } + C ,a > 0,a \neq 1 $
+	\item $\displaystyle \int \sin x d x = - \cos x + C $
+	\item $\displaystyle \int \cos x d x = \sin x + C$
+	\item $\displaystyle \int \frac { 1 } { \cos ^ { 2} x } d x = \tg x + C$
+	\item $\displaystyle \int \frac { 1 } { \sin ^ { 2} x } d x = - \ctg x + C$
+	\item $\displaystyle \int \frac { 1} { \sqrt { 1- x ^ { 2} } } d x = \arcsin x + C$
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{enumerate}
+\setcounter{enumi}{9}
+	\item $\displaystyle \int \frac { 1} { 1+ x ^ { 2} } d x = \arctg x + C$
+	\item $\displaystyle \int \frac { 1} { \sqrt { x ^ { 2} \pm 1} } d x = \ln | x + \sqrt { x ^ { 2} \pm 1} | + C$
+	\item $\displaystyle \int \frac { 1} { 1- x ^ { 2} } d x = \frac { 1} { 2} \ln \bigg| \frac { 1+ x } { 1- x } \bigg| + C$
+	\item [\labelname{9'.}] $\displaystyle \int \frac { 1} { \sqrt { a ^ { 2} - x ^ { 2} } } d x = \arcsin \frac { x } { a } + C$
+	\item [\labelname{10'.}] $\displaystyle \int \frac { 1} { a ^ { 2} + x ^ { 2} } d x = \frac { 1} { a } \arctg \frac { x } { a } + C$
+	\item [\labelname{11'.}] $\displaystyle \int \frac { 1} { \sqrt { x ^ { 2} \pm a ^ { 2} } } d x = \ln \big| x + \sqrt { x ^ { 2} \pm a ^ { 2} } \big| + C$
+	\item [\labelname{12'.}] $\displaystyle \int \frac { 1} { a ^ { 2} - x ^ { 2} } d x = \frac { 1} { 2a } \ln \bigg| \frac { a + x } { a - x } \bigg| + C$
+	\item [\labelname{12''.}] $\displaystyle \int \frac { 1} { x ^ { 2} - a ^ { 2} } d x = \frac { 1} { 2a } \ln \bigg| \frac { a - x } { a + x } \bigg| + C$
+\end{enumerate}
+\end{minipage}
+
+%\textbf{Metodi rešavanja:}
+%\begin{itemize}
+%    \item smena
+%    \item kada je nešto pod korenom (npr. $\sqrt { 1+ x }$) probati smenu u fazonu $ 1 + x = t^2 $
+%    \item svođenje na tablični
+%\end{itemize}
+
+\vspace{2mm} 
+\subsection{Korisne formule}
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{enumerate}[label=(\arabic*)]
+    \item $\sin^2 x + \cos^2 x = 1$
+    \item $\sin 2x = 2 \sin x \cos x$
+    \item $\cos 2x = \cos ^2 x - \sin ^2 x$
+    \item $\displaystyle \sin^2 x = \frac { 1 - \cos 2x } { 2}$
+    \item $\displaystyle \cos^2 x = \frac { 1 + \cos 2x } { 2}$
+    \item $\displaystyle 1+ \tg ^ { 2} x = \frac { 1} { \cos ^ { 2} x } \Longrightarrow \tg^{2} = \frac { 1} { \cos ^ { 2} x } - 1$
+    \item $\displaystyle 1+ \ctg ^ { 2} x = \frac { 1} { \sin ^ { 2} x } \Longrightarrow \ctg^{2} = \frac { 1} { \sin ^ { 2} x } - 1$
+    \item $\displaystyle \cos \alpha \cos \beta = \frac { 1} { 2} [ \cos ( \alpha - \beta ) + \cos ( \alpha + \beta ) ]$
+    \item $\displaystyle \sin \alpha \sin \beta = \frac { 1} { 2} [ \cos ( \alpha - \beta ) - \cos ( \alpha + \beta ) ] $
+    \item $\displaystyle \sin \alpha \cos \beta = \frac { 1} { 2} [ \sin ( \alpha - \beta ) + \sin ( \alpha + \beta ) ] $
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{enumerate}[label={(\arabic*)}]
+\setcounter{enumi}{10}
+	\item {	$ \sqrt{x^2} = |x| =  \begin{cases} x, \hspace{2mm} & x \geq 0 \\ -x, \hspace{2mm} & x < 0 \\	\end{cases} $ }
+	\item $ \arctg x = t  \Longrightarrow x = \tg t $
+	\item $ (a\pm b)^3 = a ^ { 3} \pm 3a ^ { 2} b + 3a b ^ { 2} \pm b ^ { 3} $
+	\item $ \displaystyle a^3\pm b^3 = (a \pm b)(a^2 \mp ab + b^2)  $
+	\item $ax^2 + bx + c = a(x-x_1)(x-x_2) \\ \hspace{1mm} x_1,x_2$ - \textit{rešenja kvadratne jednačine}
+	\item $\displaystyle \tg x = \frac{\sin x}{\cos x}$ , \hspace{1mm}  $ \displaystyle \ctg x = \frac{\cos x}{\sin x} $
+	\item $\displaystyle \sinh x = \frac{e^{x} - e^{-x}}{2}$ , \hspace{1mm} $\displaystyle \cosh x = \frac{e^{x} + e^{-x}}{2}$
+	\item $\displaystyle \sinh^2 x - \cosh^2 x = 1$ 
+	\item Složen izod: $ f'(g(x)) = f'(u)\cdot u'$, gde je $u = g(x)$
+	\item $\displaystyle (u\cdot v)' = u'v + v'u$ $\ ,\hspace{2mm}  \displaystyle \Big(\frac{u}{v}\Big)' = \frac{u'v - v'u}{v^2} $
+\end{enumerate}
+\end{minipage}
+
+\vspace{2mm} 
+
+\subsection{Korisne algebarske transformacije}
+\begin{enumerate}[label={(\arabic*)}]
+\item proširivanje $\displaystyle \frac{1}{x} = \frac { x \cdot 1} { x \cdot x}$
+    \item dodavanje sabiraka $\displaystyle \frac{t^2}{1 + t^2} = \frac {t^2 -1 + 1}{1 + t^2}$
+       \item $(a^2+x^2)^{\frac{3}{2}} = (a^2+x^2) \cdot (a^2+x^2)^{\frac{1}{2}}  = a^2 \cdot (a^2+x^2)^{\frac{1}{2}} + x^2 \cdot (a^2+x^2)^{\frac{1}{2}}$
+
+       \item $\displaystyle \frac{13}{3} = 4 + \frac{1}{3}  \Longleftrightarrow \frac{P(x)}{Q(x)} = K(x) + \frac{P_1(x)}{Q(x)} \hspace{1mm} ,\ \deg(P(x)) < \deg(Q(x))$ \ , \ korisno kod integrala racionalne funkcije
+
+\end{enumerate}
+
+
+\newpage
+
+\subsection{Rešavanje različitih tipova integrala}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\mathindent}{0.0pt}
+
+	   \begin{tabular}{|I{0.5cm}|p{7.5cm}|R{10cm}|}
+		\hline
+		   \textbf{} & \textbf{Tip integrala} & \textbf{Rešenje} \\
+
+		\hline
+		   \vspace{2mm} 1 & \[\int{x\sqrt{a + x^2}}\ \Big/\int{\frac{x \ dx}{x^2\sqrt{x^2+a^2}}}\] & smenom: $x^2 + a = t^2$ \newline $\cancel{2}xdx = \cancel{2}tdt$ \newline $x^2 = t^2 - a^2$ \\
+				\hline
+		   \vspace{2mm} 2 & \[\int{\frac{dx}{ax^2+c}}\ \Big/ \int{\frac{dx}{\sqrt{ax^2+c}}} \] & Svođenjem na tablične \texttt{9'), 10'), 11') 12')}  \\
+		\hline
+		   \vspace{2mm} 3  & \[ \int\frac{dx}{ax^2+bx +c}\ \Big/ \int{\frac{dx}{\sqrt{ax^2+bx+c}}} \] & Imenilac se dopuni do kvadrata binoma, a zatim se rešava pomoću tabličnih \texttt{9'), 10'), 11'), 12')}  \\
+		\hline
+		   \vspace{3mm} 4 & \[\int{\frac{ex+d}{ax^2+bx+c}\ dx}\ \Big/ \int{\frac{ex+d}{\sqrt{ax^2+bx+c}}\ dx}\]  & Ideja je da transformišemo $(ex+d) \rightarrow (ax^2+bx+c)'$ \newline Trans. vrišimo množenjem konst. i dodavanjem konst. sabiraka \newline Dobijemo dva podintegrala: $\int{\frac{dt}{t}}$ i $c\int{\frac{dx}{ax^2+bx+c}}$ \\
+		\hline
+		
+		   \vspace{2mm}  5 & \[ \int{P_n(x) [\ \sin x/\cos x/e^x} \ ]\ dx\] & Parcijalnom integracijom $P_n(x) = u$ \\
+		\hline
+		   \vspace{2mm} 6 & \[ \int{f(x)\ln g(x)\ dx} \] & Parcijalnom integracijom $\ln g(x) = u$ \\
+		\hline
+		   \vspace{2mm} 7  & \[ \int{\sin^n x\ dx}\ \Big/ \int{\cos^n x\ dx} \] & Primer za $\sin^n x$, kko je $n \in \{1,2,3,4,5\}$ \newline \textbf{1) Neparno:} $\sin^{n}x = (1 - \cos^2)^{(n-1)/2}\sin x dx$, \hspace{1mm} $\cos x = t$ \newline \textbf{2) Parno:} Formula za polovinu ugla. $\sin^2 x = \frac{1-\cos 2x}{2}$\\
+		\hline
+		   \vspace{3mm} 7'  & \[ \int{\sin^n x\ dx}\ \Big/ \int{\cos^n x\ dx} \] & Primer za $\sin^n x$, ako je $n > 5$ primenjujemo parcijalnu\newline $u = \sin^{n-1}x \Rightarrow du=(n-1)\sin^{n-2}x\cosx \ dx$, $dv = \sin x \Rightarrow v = -\cos x$ \newline Prilikom rešavanja javiće se početni integral $In$, rešenje će biti rekurentna veza: $I_n = \frac{1}{n} (-\sin^{n-1}x\cos x + (n-1)I_{n-2}) $   \\
+		\hline
+		   \vspace{2mm} 8  & \[ \int{\sin(ax+b)\cos(cx+d)\ dx} \] & Formulom za pretvaranje proizvoda u zbir. \newline Pogledati sve oblike ove formule! \\
+		\hline
+		   \vspace{2mm} 9  & \[\int{\sqrt{x^2\pm a^2}\ dx} \] & \textbf{1 način:} Parcijalnom integracijom $ u = \sqrt{x^2 \pm a^2} $ \newline \textbf{2 način:} smenom: $x = a\ \tg t$ \\
+		\hline
+		   \vspace{2mm} 10  & \[\int{\sqrt{a^2 - x^2}\ dx} \] & \textbf{1 način:} Parcijalnom integracijom $ u = \sqrt{a^2 - x^2} $ \newline \textbf{2 način:} smenom: $x = a\ \sin t$ \\
+		\hline
+		   \vspace{2mm} 11 & \[\int{\sqrt{ax^2+bx+c}}\ dx\] & Svodi se tipove \texttt{9} i \texttt{10} dopunom do kvadrata binoma i smenom. \\
+		\hline
+		   \vspace{3mm} 12  & \[ \int{(ex+d)\sqrt{ax^2+bx+c} \ dx} \] & Rešava se slično kao tip \texttt{4} \newline Ideja je da transformišemo $(dx+e) \rightarrow (ax^2+bx+c)'$ \newline Trans. vrišimo množenjem konst. i dodavanjem konst. sabiraka \newline Dobijemo dva podintegrala: $\int{t\ dt}$ i $c\int{\sqrt{ax^2+bx+c}\ dx}$ \\
+		\hline
+		   \vspace{2mm} 13  & \[ \int{x^2\sqrt{ax^2+bx+c} \ dx} \] & Parcijalna integracija $u = x$ \newline U parcijalnoj javiće se tip \texttt{12} ili neki lakši. \newline Nakon parcijalne dobiće se integral koji je rešiv.\\
+		\hline
+		   \vspace{2mm} 14  & \[ \int{(ex^2+fx+d)\sqrt{ax^2+bx+c} \ dx} \] & Integral se razdvaja na zbir dva podintegrala \newline Prvi je kao u primeru \texttt{13}, drugi kao u primeru \texttt{12} \newline $e\int{x^2\sqrt{ax^2+bx+c}\ dx} + \int{(fx+d)\sqrt{ax^2+bx+c}\ dx}$  \\
+		\hline
+		   \vspace{3mm} 15  & \[ \int{P_n(x) \arctg x \ dx} \ \Big / \int{P_n(x)\arccos x}\ dx \] & $u = \arcsin(\arccos/\arctg/arctg) x $, npr. za $\int{x^2\arctg 1/x\ dx}$ \newline Parcijalnom: $u = \arctg \frac{1}{x}\ \Rightarrow du = \frac{-dx}{x^2+1}, \hspace{1mm}  dv= x^2dx \Rightarrow v = \frac{x^3}{3}$ \newline  Daljim rešavanjem dobićemo kružni integral u sklopu rešenja.\\
+		\hline
+		   \vspace{2mm} 16  & \[ \int{e^{ax}\sin bx\ dx} \ \Big/ \int{e^{ax}\cos bx\ dx} \]  & Parcijalnom $u = \sin bx$ \newline Ovaj integral je kružni, u sklopu rešenja dobćemo početni integral. \newline Kada izrazimo rešenje: $I =\frac{1}{a^2+b^2}\cdot e^{ax}(a\cos bx + b\sin bx)$   \\
+		\hline
+		   \vspace{2mm} 17  & \[ \int{\frac{dx}{(x^2+a^2)^n} }\ , \hspace{2mm} n \geq 2 \]  & Rešimo za $n-1$, u tom rešenju će se javiti rekurentna veza za $n$ \newline  Parcijalna: $u = \frac{1}{(x^2 + a^2)^{n-1}} \Rightarrow du = (1-n)\frac{2x\ dx}{(x^2+a^2)^n},\ dv = dx$ \newline $I_n = \frac{1}{2(n-1)a^2}(\frac{x}{(x^2+a^2)^{n-1}} + (2n-3)I_{n-1}) $ \\
+		\hline
+		   \vspace{2mm} 18  & \[ \int{\frac{dx}{(ax^2+bx+c)^n} }\ \Big/\int{\frac{(ex+d)\ dx}{(ax^2+bx+c)^n}} \ , \hspace{1mm} n \geq 2 \]  & Dopunom do kvadrata binoma svodi se na tip \texttt{17} \newline Ovaj drugi integral koristi i znanje iz tipa \texttt{4} \\
+		\hline
+
+		% \vspace{2mm} 17  & \[ \int{f(x)dx} \] & Tekst. \\
+		%\hline
+      \end{tabular}
+
+\end{document}
